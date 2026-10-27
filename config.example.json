@@ -1,0 +1,12 @@
+{
+  "targets": [
+    { "name": "Router", "host": "10.0.1.1", "icon": "router" },
+    { "name": "Internet", "host": "8.8.4.4", "icon": "internet" },
+    { "name": "Diskstation", "host": "10.0.1.201", "icon": "server" }
+  ],
+  "stepSeconds": 60,
+  "pings": 20,
+  "port": 8584,
+  "rawDays": 30,
+  "keepDays": 730
+}

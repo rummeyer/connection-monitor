@@ -1,0 +1,21 @@
+# A systemd unit for Connection Monitor, as the user who owns the folder.
+# Install (paths and user as on the Raspberry Pi it was written for):
+#
+#   sudo cp connection-monitor.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now connection-monitor
+#
+[Unit]
+Description=Connection Monitor: latency and loss to the router, the internet and more
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=rummeyer
+WorkingDirectory=/home/rummeyer/connection-monitor
+ExecStart=/usr/bin/node --disable-warning=ExperimentalWarning src/main.ts
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

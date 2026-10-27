@@ -1,7 +1,7 @@
 {
   "name": "connection-monitor",
   "version": "0.1.0",
-  "description": "Latency and packet loss to the router, the internet and anything else on the network, measured with fping and shown on a dashboard in the look of Appliance Monitor's — Smokeping, with its history taken over.",
+  "description": "Latency and packet loss to the router, the internet and anything else on the network, measured with fping and shown on a dashboard in the look of Appliance Monitor's \u2014 Smokeping, with its history taken over.",
   "license": "MIT",
   "author": "Oliver Rummeyer",
   "type": "module",
@@ -10,8 +10,8 @@
     "node": ">=22.18.0"
   },
   "scripts": {
-    "start": "node src/main.ts",
-    "import": "node src/import.ts",
+    "start": "node --disable-warning=ExperimentalWarning src/main.ts",
+    "import": "node --disable-warning=ExperimentalWarning src/import.ts",
     "test": "node --test test/*.test.ts"
   }
 }

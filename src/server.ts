@@ -59,13 +59,14 @@ export function status(config: Config, store: Store, problems: string[], now = M
     pings: config.pings,
     problems,
     targets: config.targets.map((target) => {
-      const last = store.latest(target.name, config.stepSeconds);
+      const last = store.latest(target.name);
       return {
         name: target.name,
         host: target.host,
         icon: target.icon,
         last: last && {
           t: last.t,
+          step: last.step,
           median: last.median,
           loss: last.loss,
           min: last.rtts[0] ?? null,

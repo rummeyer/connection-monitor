@@ -66,11 +66,11 @@ export class Store {
     return rows.map((row) => ({ ...row, rtts: JSON.parse(row.rtts) as number[] }));
   }
 
-  /** The newest sample of a target, of the given step. */
-  latest(target: string, step: number): Sample | undefined {
+  /** The newest round of a target: measured here, or Smokeping's last before the first one here. */
+  latest(target: string): Sample | undefined {
     const row = this.#db
-      .prepare('SELECT target, t, step, sent, loss, median, rtts FROM samples WHERE target = ? AND step = ? ORDER BY t DESC LIMIT 1')
-      .get(target, step) as unknown as (Omit<Sample, 'rtts'> & { rtts: string }) | undefined;
+      .prepare('SELECT target, t, step, sent, loss, median, rtts FROM samples WHERE target = ? AND step < 3600 ORDER BY t DESC, step LIMIT 1')
+      .get(target) as unknown as (Omit<Sample, 'rtts'> & { rtts: string }) | undefined;
     return row && { ...row, rtts: JSON.parse(row.rtts) as number[] };
   }
 

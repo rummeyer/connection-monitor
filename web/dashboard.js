@@ -109,7 +109,7 @@
 
   function tile(target, step) {
     const last = target.last;
-    const stale = !last || Date.now() / 1000 - last.t > step * 3 + 60;
+    const stale = !last || Date.now() / 1000 - last.t > Math.max(step, last.step) * 3 + 60;
     let kind = 'running';
     let state = 'Good';
     if (stale) {
@@ -195,7 +195,7 @@
     const box = card.querySelector('.legend');
     const measured = points.filter((p) => p.median !== null);
     if (measured.length === 0) {
-      box.textContent = 'Nothing measured in this time';
+      box.textContent = points.some((p) => p.loss !== null) ? 'No answer · Loss 100 %' : 'Nothing measured in this time';
       return;
     }
     const medians = measured.map((p) => p.median).sort((a, b) => a - b);
