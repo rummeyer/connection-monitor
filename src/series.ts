@@ -56,12 +56,18 @@ export const SMOKE_QUANTILES = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 
  * The samples between `from` and `to` (unix seconds) as `count` points. Where
  * samples of several steps cover the same stretch — Smokeping's five minutes
  * beside its hours, or an hour that rounds were folded into — a point is made
- * of the finest there is.
+ * of the finest there is. Samples longer than a twelfth of the range are left
+ * out: half a day of Smokeping's says nothing about three hours, and a gap
+ * in the rounds stays a gap rather than being filled with it.
  */
 export function points(samples: Sample[], from: number, to: number, count: number): Point[] {
   const width = (to - from) / count;
+  const longest = (to - from) / 12;
   const buckets: Sample[][] = Array.from({ length: count }, () => []);
   for (const sample of samples) {
+    if (sample.step > longest) {
+      continue;
+    }
     // A sample longer than a point goes into every point it covers.
     const first = Math.max(0, Math.floor((sample.t - from) / width));
     const last = Math.min(count - 1, Math.floor((sample.t + sample.step - 1 - from) / width));

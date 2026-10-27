@@ -52,6 +52,10 @@
   } catch {
     // No storage, as in a private window: the last 24 hours.
   }
+  // A range in the address, as #3h, for a bookmark, before the one chosen last.
+  if (RANGE_TICKS[location.hash.slice(1)]) {
+    range = location.hash.slice(1);
+  }
   if (!RANGE_TICKS[range]) {
     // Also one of the ranges there were before, such as 30 hours.
     range = '24h';

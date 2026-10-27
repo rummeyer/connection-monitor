@@ -10,7 +10,13 @@ adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
 - The chart's ranges: 1 hour, 3, 12 or 24 hours, 7 or 30 days, or a year,
   in place of Smokeping's 3 hours, 30 hours, 10 days and a year; 24 hours
-  first.
+  first. A range in the address, as `#3h`, for a bookmark.
+
+### Fixed
+
+- A gap in the rounds, as while the machine restarts, was filled with
+  Smokeping's hourly or twelve-hour averages; a range now takes nothing
+  longer than a twelfth of it.
 
 ## [1.0.0] — 2026-10-27
 

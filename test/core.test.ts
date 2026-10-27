@@ -45,9 +45,12 @@ test('a chart point is made of the finest samples there are, a gap where there a
   const sample = (t: number, step: number, rtt: number): Sample => ({ target: 'R', t, step, sent: 2, loss: 0, median: rtt, rtts: [rtt, rtt] });
   // An hour from Smokeping over the whole stretch, and five minutes in its first half.
   const samples = [sample(0, 3600, 9), sample(0, 300, 1), sample(300, 300, 1), sample(600, 300, 1)];
-  const chart = points(samples, 0, 3600 * 2, 4);
-  assert.deepEqual(chart.map((p) => [p.median, p.step]), [[1, 300], [9, 3600], [null, null], [null, null]]);
+  const chart = points(samples, 0, 3600 * 12, 24);
+  assert.deepEqual(chart.slice(0, 4).map((p) => [p.median, p.step]), [[1, 300], [9, 3600], [null, null], [null, null]]);
   assert.equal(chart[0]!.smoke.length, 11);
+  // Over two hours an hour is too long to say anything: a gap, not the hour.
+  const short = points(samples, 0, 3600 * 2, 4);
+  assert.deepEqual(short.map((p) => [p.median, p.step]), [[1, 300], [null, null], [null, null], [null, null]]);
 });
 
 test('Smokeping targets, with groups, and its archive rows as samples', () => {
