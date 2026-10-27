@@ -3,6 +3,7 @@
  *
  *   GET /api/status                       every target: its last round, hour and day
  *   GET /api/series?target=…&range=30h    a target's chart: 3h, 30h, 10d or 1y
+ *   GET /smokeping/…                      Smokeping's old address: here instead
  *
  * Without a login, for a browser on the home network, as Appliance
  * Monitor's and Synology Monitor's dashboards are.
@@ -98,6 +99,10 @@ export function startServer(config: Config, store: Store, problems: string[]): S
       return;
     }
     try {
+      if (url.pathname === '/smokeping' || url.pathname.startsWith('/smokeping/')) {
+        response.writeHead(301, { Location: '/' }).end();
+        return;
+      }
       if (url.pathname === '/api/status') {
         json(response, 200, status(config, store, problems));
         return;

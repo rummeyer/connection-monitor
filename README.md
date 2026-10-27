@@ -55,7 +55,7 @@ Node 22.18 or later, which runs the TypeScript as it is, and fping.
 npm start
 ```
 
-To keep it running, `connection-monitor.service` is a systemd unit; the comment at its top says how to install it.
+To keep it running, `connection-monitor.service` is a systemd unit; the comment at its top says how to install it. It may take a port below 1024 — 80, where Smokeping was under Apache — without running as root, and Smokeping's old address, `/smokeping/…`, leads to the dashboard.
 
 ## Licence
 

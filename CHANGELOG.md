@@ -17,4 +17,5 @@ adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
   the spread of the pings as smoke.
 - `npm run import`: Smokeping's targets and its year of history, read from
   its RRDs through Perl's RRDs module.
-- A systemd unit.
+- A systemd unit, allowed a port below 1024 such as Smokeping's 80; its old
+  address, `/smokeping/…`, leads to the dashboard.
