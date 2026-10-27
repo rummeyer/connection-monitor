@@ -19,9 +19,13 @@
     device: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M10 18h4"/>',
   };
 
-  /** Smokeping's loss colours, quieter: none, a little, much, nearly all. */
+  /**
+   * Smokeping's loss colours, quieter: none, a little, much, nearly all.
+   * Under half a percent counts as none, as Smokeping rounds it: averaged
+   * over hours, a single lost ping would otherwise colour a whole stretch.
+   */
   const LOSS = [
-    { upTo: 0, color: '#2e9e5b', label: 'no loss' },
+    { upTo: 0.005, color: '#2e9e5b', label: 'no loss' },
     { upTo: 0.05, color: '#2f80ed', label: 'up to 5 %' },
     { upTo: 0.2, color: '#c9822a', label: 'up to 20 %' },
     { upTo: 0.99, color: '#d64545', label: 'more' },

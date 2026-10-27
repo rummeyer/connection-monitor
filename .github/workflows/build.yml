@@ -1,0 +1,36 @@
+# Test on every Node.js version it is meant to run on. There is nothing to
+# install or build: Node runs the TypeScript as it is, and SQLite is built in.
+#
+# The matrix mirrors `engines.node` in package.json. Keep the two in step.
+
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22, 24, 26]
+
+    name: Node ${{ matrix.node-version }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Test
+        run: npm test

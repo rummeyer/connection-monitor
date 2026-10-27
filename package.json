@@ -1,7 +1,7 @@
 {
   "name": "connection-monitor",
   "version": "0.1.0",
-  "description": "Latency and packet loss to the router, the internet and anything else on the network, measured with fping and shown on a dashboard in the look of Appliance Monitor's \u2014 Smokeping, with its history taken over.",
+  "description": "Latency and packet loss to the router, the internet and anything else on the network — Smokeping, measured with fping and shown on a dashboard in Apple's Home look, with Smokeping's history taken over.",
   "license": "MIT",
   "author": "Oliver Rummeyer",
   "type": "module",
@@ -13,5 +13,22 @@
     "start": "node --disable-warning=ExperimentalWarning src/main.ts",
     "import": "node --disable-warning=ExperimentalWarning src/import.ts",
     "test": "node --test test/*.test.ts"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rummeyer/connection-monitor.git"
+  },
+  "homepage": "https://github.com/rummeyer/connection-monitor#readme",
+  "bugs": {
+    "url": "https://github.com/rummeyer/connection-monitor/issues"
+  },
+  "keywords": [
+    "smokeping",
+    "fping",
+    "latency",
+    "packet loss",
+    "ping",
+    "network monitor",
+    "dashboard"
+  ]
 }
