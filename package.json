@@ -1,6 +1,6 @@
 {
   "name": "connection-monitor",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Latency and packet loss to the router, the internet and anything else on the network — Smokeping, measured with fping and shown on a dashboard in Apple's Home look, with Smokeping's history taken over.",
   "license": "MIT",
   "author": "Oliver Rummeyer",

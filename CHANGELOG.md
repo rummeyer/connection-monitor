@@ -6,6 +6,10 @@ adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.0] — 2026-10-27
+
+The first release.
+
 ### Added
 
 - Pings every target 20 times a minute with fping, as Smokeping's FPing probe,
@@ -18,3 +22,6 @@ adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 - `npm run import`: Smokeping's targets and its year of history, read from
   its RRDs through Perl's RRDs module.
 - A systemd unit.
+
+[Unreleased]: https://github.com/rummeyer/connection-monitor/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/rummeyer/connection-monitor/releases/tag/v1.0.0
