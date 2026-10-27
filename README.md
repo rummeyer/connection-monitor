@@ -24,7 +24,7 @@
 
 ---
 
-Every minute it sends each target **20 pings** with [fping](https://fping.org), spread over the minute, as Smokeping's FPing probe does, and keeps what came back. A **dashboard** shows each target's latency and loss now, and its chart over **3 hours, 30 hours, 10 days or a year** — drawn as Smokeping draws it: the **median** a line coloured by loss, the **spread of the pings** the smoke around it.
+Every minute it sends each target **20 pings** with [fping](https://fping.org), spread over the minute, as Smokeping's FPing probe does, and keeps what came back. A **dashboard** shows each target's latency and loss now, and its chart over **1 hour, 3 hours, 12 hours, 24 hours, 7 days, 30 days or a year** — drawn as Smokeping draws it: the **median** a line coloured by loss, the **spread of the pings** the smoke around it.
 
 Coming from Smokeping? One command takes over its targets and its **year of history**, and the charts go on seamlessly where Smokeping left off.
 
@@ -38,7 +38,7 @@ No packages to install, no build, no database server: **Node** runs it as it is,
 
 **A tile per target**: the median round-trip time of the last round, and whether it is *Good*, losing pings, or giving *No answer* at all — with the last hour beside it.
 
-**A chart per target**, over 3 hours, 30 hours, 10 days or a year:
+**A chart per target**, over 1 hour, 3, 12 or 24 hours, 7 or 30 days, or a year:
 
 - The **line** is the median, coloured by loss: green none, blue up to 5 %, orange up to 20 %, red more, dark red no answer at all.
 - The **smoke** around it is the spread of the pings: the fastest and slowest tenth faintest, the middle fifth darkest. Wide smoke means jitter; a line without smoke, a steady connection.
@@ -114,7 +114,7 @@ The dashboard asks two things, both read only:
 | | |
 |---|---|
 | `GET /api/status` | Every target: its last round, its last hour and its last day |
-| `GET /api/series?target=Router&range=30h` | A target's chart, `3h`, `30h`, `10d` or `1y`, as points with the median, loss and the quantiles of the pings |
+| `GET /api/series?target=Router&range=24h` | A target's chart, `1h`, `3h`, `12h`, `24h`, `7d`, `30d` or `1y`, as points with the median, loss and the quantiles of the pings |
 
 ## Development
 

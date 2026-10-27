@@ -32,23 +32,29 @@
     { upTo: 1, color: '#7d1f1f', label: 'no answer' },
   ];
 
+  /** The time axis per range: a line every so often, and what it says. Midnight says the day. */
+  const atMidnight = (d) => (d.getHours() === 0 && d.getMinutes() === 0 ? weekday(d) : time(d));
   const RANGE_TICKS = {
-    '3h': { every: 1800, label: (d) => time(d) },
-    '30h': { every: 6 * 3600, label: (d) => (d.getHours() === 0 ? weekday(d) : time(d)) },
-    '10d': { every: 86400, label: (d) => weekday(d) },
+    '1h': { every: 600, label: atMidnight },
+    '3h': { every: 1800, label: atMidnight },
+    '12h': { every: 2 * 3600, label: atMidnight },
+    '24h': { every: 3 * 3600, label: atMidnight },
+    '7d': { every: 86400, label: (d) => weekday(d) },
+    '30d': { every: 'week', label: (d) => d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) },
     '1y': { every: 'month', label: (d) => d.toLocaleDateString(undefined, { month: 'short' }) },
   };
 
   const tilesBox = document.getElementById('tiles');
   const chartsBox = document.getElementById('charts');
-  let range = '30h';
+  let range = '24h';
   try {
     range = localStorage.getItem(RANGE_KEY) || range;
   } catch {
-    // No storage, as in a private window: 30 hours, as Smokeping's first chart.
+    // No storage, as in a private window: the last 24 hours.
   }
   if (!RANGE_TICKS[range]) {
-    range = '30h';
+    // Also one of the ranges there were before, such as 30 hours.
+    range = '24h';
   }
   /** When the charts were last drawn: they change each step, the tiles more often. */
   let chartsAt = 0;
@@ -163,10 +169,19 @@
     return card;
   }
 
-  /** Round numbers for the time axis: every half hour, six hours, day or month, in local time. */
+  /** Round numbers for the time axis: every so many minutes or hours, each day, Monday or month, in local time. */
   function ticks(from, to) {
     const rule = RANGE_TICKS[range];
     const out = [];
+    if (rule.every === 'week') {
+      const d = new Date(from * 1000);
+      d.setHours(0, 0, 0, 0);
+      d.setDate(d.getDate() + ((8 - d.getDay()) % 7 || 7));
+      for (; d.getTime() / 1000 < to; d.setDate(d.getDate() + 7)) {
+        out.push(d.getTime() / 1000);
+      }
+      return out;
+    }
     if (rule.every === 'month') {
       const d = new Date(from * 1000);
       d.setDate(1);

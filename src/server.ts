@@ -2,7 +2,7 @@
  * The dashboard and what it asks for, read only:
  *
  *   GET /api/status                       every target: its last round, hour and day
- *   GET /api/series?target=…&range=30h    a target's chart: 3h, 30h, 10d or 1y
+ *   GET /api/series?target=…&range=24h    a target's chart: 1h, 3h, 12h, 24h, 7d, 30d or 1y
  *
  * Without a login, for a browser on the home network, as Appliance
  * Monitor's and Synology Monitor's dashboards are.
@@ -25,11 +25,14 @@ const FILES: Record<string, { type: string; path: string }> = {
   '/home.svg': { type: 'image/svg+xml', path: 'web/home.svg' },
 };
 
-/** The chart's ranges, as Smokeping's: in seconds. */
+/** The chart's ranges, in seconds. */
 export const RANGES: Record<string, number> = {
+  '1h': 3600,
   '3h': 3 * 3600,
-  '30h': 30 * 3600,
-  '10d': 10 * 86400,
+  '12h': 12 * 3600,
+  '24h': 24 * 3600,
+  '7d': 7 * 86400,
+  '30d': 30 * 86400,
   '1y': 365 * 86400,
 };
 
@@ -81,7 +84,7 @@ export function status(config: Config, store: Store, problems: string[], now = M
 }
 
 export function series(config: Config, store: Store, target: string, range: string, now = Math.floor(Date.now() / 1000)) {
-  const seconds = RANGES[range] ?? RANGES['30h']!;
+  const seconds = RANGES[range] ?? RANGES['24h']!;
   // A point per round where that fits, else as many as a chart is wide.
   const count = Math.min(720, Math.ceil(seconds / config.stepSeconds));
   const width = seconds / count;
@@ -108,7 +111,7 @@ export function startServer(config: Config, store: Store, problems: string[]): S
           json(response, 404, { error: `No target "${target}"` });
           return;
         }
-        json(response, 200, series(config, store, target, url.searchParams.get('range') ?? '30h'));
+        json(response, 200, series(config, store, target, url.searchParams.get('range') ?? '24h'));
         return;
       }
       const file = FILES[url.pathname];
