@@ -6,6 +6,8 @@ adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.0] — 2026-10-27
+
 ### Changed
 
 - The chart's ranges: 1 hour, 3, 12 or 24 hours, 7 or 30 days, or a year,
@@ -35,5 +37,6 @@ The first release.
   its RRDs through Perl's RRDs module.
 - A systemd unit.
 
-[Unreleased]: https://github.com/rummeyer/connection-monitor/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/rummeyer/connection-monitor/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/rummeyer/connection-monitor/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/rummeyer/connection-monitor/releases/tag/v1.0.0
